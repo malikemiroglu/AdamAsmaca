@@ -3,6 +3,7 @@ import { HangmanDrawing } from "./HangmanDrawing"
 import { HangmanWord } from "./HangmanWord"
 import { Keyboard } from "./Keyboard"
 import word from "./wordList.json"
+import { HangmanWordCategory } from "./HangmanWordCategory"
 
 function getWord() {
   const randomIndex = Math.floor(Math.random() * word.length)
@@ -10,7 +11,11 @@ function getWord() {
 }
 
 function App() {
-  const [wordToGuess, setWordToGuess] = useState(getWord());
+  const { words, category } = getWord()
+
+  const [wordToGuess, setWordToGuess] = useState(words[Math.floor(Math.random() * words.length)]);
+
+  const [currentCategory, setCurrentCategory] = useState(category)
 
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
 
@@ -44,7 +49,8 @@ function App() {
 
       event.preventDefault();
       setGuessedLetters([])
-      setWordToGuess(getWord());
+      setWordToGuess(word);
+      setCurrentCategory(category)
     }
 
     document.addEventListener("keypress", handler)
@@ -57,15 +63,15 @@ function App() {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "2rem",
-        margin: "0 auto"
+        margin: "0 auto",
       }}
     >
-      <div style={{ fontSize: "2rem", textAlign:"center"}}>
+      <div style={{ fontSize: "2rem", textAlign:"center", marginBottom:"10px"}}>
         {isWinner && "Winner! - Refresh to try again"}
         {isLoser && "Nice Try! - Refresh to try again"}
       </div>
       <HangmanDrawing numberOfGuesses={incorrectLetters.length} />
+      <HangmanWordCategory currentCategory={currentCategory} />
       <HangmanWord 
         reveal={isLoser} 
         guessedLetters={guessedLetters} 

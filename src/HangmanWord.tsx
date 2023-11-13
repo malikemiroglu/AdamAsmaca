@@ -5,7 +5,6 @@ type HangmanWordProps = {
 }
 
 export function HangmanWord({ guessedLetters, wordToGuess, reveal=false }: HangmanWordProps) {
-    
     return (
         <div 
             style={{ 
@@ -15,6 +14,7 @@ export function HangmanWord({ guessedLetters, wordToGuess, reveal=false }: Hangm
                 fontWeight:"bold", 
                 textTransform:"uppercase", 
                 fontFamily:"monospace", 
+                marginBottom:"20px",
             }}
         >
             {wordToGuess.split("").map((letter, index) => (
