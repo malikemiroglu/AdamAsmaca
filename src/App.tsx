@@ -49,7 +49,7 @@ function App() {
 
       event.preventDefault();
       setGuessedLetters([])
-      setWordToGuess(word);
+      setWordToGuess(words[Math.floor(Math.random() * words.length)]);
       setCurrentCategory(category)
     }
 
